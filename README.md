@@ -1,6 +1,10 @@
+## Installation
+
+You will need Python3 installed in your system.
+
 ### Configuration
 
-`./.env`
+Review and modify configurations in `./.env` if you like.
 
 ### Install dependencies into virtual environment (Linux/Mac version)
 
@@ -10,18 +14,21 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+### Create database
+Start by removing existent database (if any).
+```bash
+rm sqlite/star_wars.db
+rm migrations -rf
+```
+Create the new database.
+```bash
+flask db init
+flask db migrate
+flask db upgrade
+```
+
 ### Run
 
 ```bash
 flask run
-```
-
-### Reset database
-
-```bash
-rm sqlite/star_wars.db
-rm migrations -rf
-flask db init
-flask db migrate
-flask db upgrade
 ```
