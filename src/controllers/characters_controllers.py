@@ -19,6 +19,6 @@ def addCharacter():
         }), 500
         
 def getAllCharacters():
-    users = Character()
+    users = Character
     print(users)
     return "<h1>It Works!</h1>", 200
