@@ -13,7 +13,7 @@ class Character(db.Model):
     description=db.Column(db.String(512), nullable=False)
     img_path=db.Column(db.String(256))
     def __repr__(self):
-        return '<Character %r: %s>' % self.id, self.name
+        return '<Character id: %r - %s>' % (self.id, self.name)
     def serialize(self):
         return { "id": self.id, "name": self.name, "description": self.description }
 
