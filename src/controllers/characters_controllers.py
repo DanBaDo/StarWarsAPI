@@ -19,6 +19,5 @@ def addCharacter():
         }), 500
         
 def getAllCharacters():
-    users = Character
-    print(users)
-    return "<h1>It Works!</h1>", 200
+    characters = Character.query.all()
+    return jsonify([character.serialize() for character in characters]), 200
