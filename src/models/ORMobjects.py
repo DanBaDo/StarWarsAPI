@@ -5,6 +5,10 @@ class User(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     username=db.Column(db.String(250), nullable=False)
     password_hash=db.Column(db.String(250))
+    def __repr__(self):
+        return '<User id: %r - %s>' % (self.id, self.username)
+    def serialize(self):
+        return { "id": self.id, "username": self.username }
 
 class Character(db.Model):
     __tablename__="character"
