@@ -7,6 +7,7 @@ from flask_cors import CORS
 # Local imports
 from models.session import db
 from rest_api.endpoints_character import add_character_endpoints
+from rest_api.endpoints_planet import add_planets_endpoints
 
 # Configure Flask app
 app = Flask(__name__)
@@ -17,6 +18,7 @@ CORS(app)
 
 # Add app endpoint
 add_character_endpoints(app)
+add_planets_endpoints(app)
 
 # Run app
 if __name__ == '__main__':
