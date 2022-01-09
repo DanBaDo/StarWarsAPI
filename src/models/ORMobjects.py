@@ -23,6 +23,10 @@ class Planet(db.Model):
     name=db.Column(db.String(250), nullable=False)
     description=db.Column(db.String(512), nullable=False)
     img_path=db.Column(db.String(256))
+    def __repr__(self):
+        return '<Planet id: %r - %s>' % (self.id, self.name)
+    def serialize(self):
+        return { "id": self.id, "name": self.name, "description": self.description, "img_path": self.img_path }
 
 class Favorite(db.Model):
     __tablename__="favorite"
