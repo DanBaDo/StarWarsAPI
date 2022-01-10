@@ -1,5 +1,5 @@
-from models.ORMobjects import Character
-from models.session import db
+from api.models.ORMobjects import Character
+from api.models.session import db
 from flask import request, jsonify
 
 def add_character():

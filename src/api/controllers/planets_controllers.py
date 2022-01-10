@@ -1,5 +1,5 @@
-from models.ORMobjects import Planet
-from models.session import db
+from api.models.ORMobjects import Planet
+from api.models.session import db
 from flask import request, jsonify
 
 def add_planet():
