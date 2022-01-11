@@ -1,0 +1,1 @@
+from api.endpoints import endpoints_character, endpoints_planet, endpoints_user

@@ -15,7 +15,7 @@ db.init_app(app)
 CORS(app)
 
 # Add app endpoints
-from api.endpoints import endpoints_character, endpoints_planet, endpoints_user
+from api import endpoints
 
 # Run app
 if __name__ == '__main__':
