@@ -1,14 +1,14 @@
 from flask import request, jsonify
+from werkzeug.security import generate_password_hash
 
 from api.models.ORMobjects import User
 from api.models.session import db
-from tools.password_hash import get_password_hash
 
 def add_user():
     user_data = request.json
     try:
         if "username" in user_data and "password" in user_data :
-            password_hash = get_password_hash(user_data["password"])
+            password_hash = generate_password_hash(user_data["password"])
             new_user = User(username=user_data["username"], password_hash=password_hash)
             db.session.add(new_user)
             db.session.commit()
