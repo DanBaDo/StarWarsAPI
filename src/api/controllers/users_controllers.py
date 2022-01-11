@@ -1,8 +1,8 @@
 from flask import request, jsonify
 from werkzeug.security import generate_password_hash
 
-from api.models.ORMobjects import User
-from api.models.session import db
+from api.models import User
+from api.models import db
 
 def add_user():
     user_data = request.json

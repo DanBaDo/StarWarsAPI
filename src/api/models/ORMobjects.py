@@ -1,4 +1,4 @@
-from api.models.session import db
+from api.models import db
 
 class User(db.Model):
     __tablename__="user"

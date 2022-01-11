@@ -5,7 +5,7 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_cors import CORS
 # Local imports
-from api.models.session import db
+from api.models import db
 
 # Configure Flask app
 app = Flask(__name__)
