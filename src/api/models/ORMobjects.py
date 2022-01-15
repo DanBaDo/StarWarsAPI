@@ -1,4 +1,4 @@
-from api.models.session import db
+from api.models import db
 
 aux_planets = db.Table('planets',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
