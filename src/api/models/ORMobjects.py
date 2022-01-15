@@ -1,10 +1,24 @@
 from api.models.session import db
 
+aux_planets = db.Table('planets',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('planet_id', db.Integer, db.ForeignKey('planet.id'), primary_key=True)
+)
+
+aux_characters = db.Table('characters',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('character_id', db.Integer, db.ForeignKey('character.id'), primary_key=True)
+)
+
 class User(db.Model):
     __tablename__="user"
     id=db.Column(db.Integer, primary_key=True)
     username=db.Column(db.String(250), nullable=False)
     password_hash=db.Column(db.String(250))
+    planets = db.relationship('Planet', secondary=aux_planets, lazy='subquery',
+        backref=db.backref('users', lazy=True))
+    characters = db.relationship('Character', secondary=aux_characters, lazy='subquery',
+        backref=db.backref('users', lazy=True))
     def __repr__(self):
         return '<User id: %r - %s>' % (self.id, self.username)
     def serialize(self):
@@ -32,12 +46,3 @@ class Planet(db.Model):
     def serialize(self):
         return { "id": self.id, "name": self.name, "description": self.description, "img_path": self.img_path }
 
-class Favorite(db.Model):
-    __tablename__="favorite"
-    id=db.Column(db.Integer,primary_key=True)
-    user_id =db.Column(db.Integer, db.ForeignKey("user.id"))
-    planet_id =db.Column(db.Integer, db.ForeignKey("planet.id"))
-    character_id =db.Column(db.Integer, db.ForeignKey("character.id"))
-    user =db.relationship(User)
-    planet =db.relationship(Planet)
-    character =db.relationship(Character)
