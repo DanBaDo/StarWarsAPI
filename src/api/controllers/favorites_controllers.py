@@ -1,60 +1,71 @@
-from api.models.ORMobjects import Character, Planet, User
 from flask import jsonify
+from api.models import Character, Planet, User
+from api import db
 
 def add_favorite_planet(user_id, planet_id):
     try:
-        User.query.get(user_id).planets.append(
-            Planet.query.get(planet_id)
-        )
+        planet = Planet.query.get(planet_id)
+        user = User.query.get(user_id)
+        user.planets.append(planet)
+        db.session.commit()
     except Exception as err:
-        print(err)
+        print(str(err))
         return jsonify({
             "message": "Error adding new favorite planet",
-            "error": err,
+            "error": str(err),
         }), 500
+    return  jsonify({"message": "New planet added to favorites"}), 201
 
 def get_favorite_planets(user_id):
+    favorite_planets = User.query.get(user_id).planets
     return jsonify(
-        (planet.serialize() for planet in User.get(user_id).planets)
+        [planet.serialize() for planet in favorite_planets]
     )
 
 def drop_favorite_planet(user_id, planet_id):
     try:
-        User.query.get(user_id).planets.remove(
-            Planet.query.get(planet_id)
-        )
+        user = User.query.get(user_id)
+        planet = Planet.query.get(planet_id)
+        user.planets.remove(planet)
+        db.session.commit()
     except Exception as err:
-        print(err)
+        print(str(err))
         return jsonify({
             "message": "Error removing favorite planet",
-            "error": err,
+            "error": str(err),
         }), 500
+    return  jsonify({"message": "Planet removed from favorites"}), 201
 
 def add_favorite_character(user_id, character_id):
     try:
-        User.query.get(user_id).characters.append(
-            Character.query.get(character_id)
-        )
+        user = User.query.get(user_id)
+        character = Character.query.get(character_id)
+        user.characters.append(character)
+        db.session.commit()
     except Exception as err:
-        print(err)
+        print(str(err))
         return jsonify({
-            "message": "Error adding new favorite character",
-            "error": err,
+            "message": "Error adding character to favorites",
+            "error": str(err),
         }), 500
+    return  jsonify({"message": "Character added to favorites"}), 201
 
 def get_favorite_characters(user_id):
+    favorite_characters = User.query.get(user_id).characters
     return jsonify(
-        (character.serialize() for character in User.get(user_id).characters)
+        [character.serialize() for character in favorite_characters]
     )
 
 def drop_favorite_character(user_id, character_id):
     try:
-        User.query.get(user_id).characters.remove(
-            Character.query.get(character_id)
-        )
+        user = User.query.get(user_id)
+        character = Character.query.get(character_id)
+        user.characters.remove(character)
+        db.session.commit()
     except Exception as err:
-        print(err)
+        print(str(err))
         return jsonify({
-            "message": "Error removing favorite character",
-            "error": err,
+            "message": "Error removing character from favorites",
+            "error": str(err),
         }), 500
+    return  jsonify({"message": "Character removed from favorites"}), 201
