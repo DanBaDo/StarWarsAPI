@@ -9,7 +9,7 @@ def login():
         user = User.query.filter_by(username = request.json.get("username")).first()
         valid_password = check_password_hash(user.password_hash, request.json.get("password"))
         if valid_password:
-            token = create_access_token(user.username)
+            token = create_access_token(user)
             return jsonify(token)
         else:
             return jsonify({
