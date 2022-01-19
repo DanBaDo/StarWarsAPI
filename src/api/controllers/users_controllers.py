@@ -20,6 +20,7 @@ def add_user():
             "message": "Error adding user",
             "error": str(err),
         }), 500
+        
 def get_all_users():
     users = User.query.all()
     return jsonify([user.serialize() for user in users]), 200
