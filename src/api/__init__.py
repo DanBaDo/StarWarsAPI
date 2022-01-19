@@ -11,11 +11,12 @@ from api.models import db
 # Configure Flask app
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_CONNECTION_STRING')
-app.config["JWT_SECRET_KEY"] = environ.get("JWT_SECRET_KEY")
 MIGRATE = Migrate(app, db)
 db.init_app(app)
 CORS(app)
-JWTManager(app)
+
+# Add access control
+from api import access_control
 
 # Add app endpoints
 from api import endpoints
