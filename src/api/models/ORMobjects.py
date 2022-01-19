@@ -13,7 +13,7 @@ aux_characters = db.Table('characters',
 class User(db.Model):
     __tablename__="user"
     id=db.Column(db.Integer, primary_key=True)
-    username=db.Column(db.String(250), nullable=False)
+    username=db.Column(db.String(250), nullable=False, unique=True)
     password_hash=db.Column(db.String(250))
     planets = db.relationship('Planet', secondary=aux_planets, lazy='subquery',
         backref=db.backref('users', lazy=True))
@@ -27,7 +27,7 @@ class User(db.Model):
 class Character(db.Model):
     __tablename__="character"
     id=db.Column(db.Integer, primary_key=True)
-    name=db.Column(db.String(250), nullable=False)
+    name=db.Column(db.String(250), nullable=False, unique=True)
     description=db.Column(db.String(512), nullable=False)
     img_path=db.Column(db.String(256))
     def __repr__(self):
@@ -38,7 +38,7 @@ class Character(db.Model):
 class Planet(db.Model):
     __tablename__="planet"
     id=db.Column(db.Integer, primary_key=True)
-    name=db.Column(db.String(250), nullable=False)
+    name=db.Column(db.String(250), nullable=False, unique=True)
     description=db.Column(db.String(512), nullable=False)
     img_path=db.Column(db.String(256))
     def __repr__(self):
