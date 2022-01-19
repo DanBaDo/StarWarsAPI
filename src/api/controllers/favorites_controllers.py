@@ -1,12 +1,13 @@
 from flask import jsonify
+from flask_jwt_extended import jwt_required, current_user
 from api.models import Character, Planet, User
 from api import db
 
-def add_favorite_planet(user_id, planet_id):
+@jwt_required()
+def add_favorite_planet(planet_id):
     try:
         planet = Planet.query.get(planet_id)
-        user = User.query.get(user_id)
-        user.planets.append(planet)
+        current_user.planets.append(planet)
         db.session.commit()
     except Exception as err:
         print(str(err))
@@ -22,11 +23,11 @@ def get_favorite_planets(user_id):
         [planet.serialize() for planet in favorite_planets]
     )
 
-def drop_favorite_planet(user_id, planet_id):
+@jwt_required()
+def drop_favorite_planet(planet_id):
     try:
-        user = User.query.get(user_id)
         planet = Planet.query.get(planet_id)
-        user.planets.remove(planet)
+        current_user.planets.remove(planet)
         db.session.commit()
     except Exception as err:
         print(str(err))
@@ -36,11 +37,11 @@ def drop_favorite_planet(user_id, planet_id):
         }), 500
     return  jsonify({"message": "Planet removed from favorites"}), 201
 
-def add_favorite_character(user_id, character_id):
+@jwt_required()
+def add_favorite_character(character_id):
     try:
-        user = User.query.get(user_id)
         character = Character.query.get(character_id)
-        user.characters.append(character)
+        current_user.characters.append(character)
         db.session.commit()
     except Exception as err:
         print(str(err))
@@ -56,11 +57,11 @@ def get_favorite_characters(user_id):
         [character.serialize() for character in favorite_characters]
     )
 
-def drop_favorite_character(user_id, character_id):
+@jwt_required()
+def drop_favorite_character(character_id):
     try:
-        user = User.query.get(user_id)
         character = Character.query.get(character_id)
-        user.characters.remove(character)
+        current_user.characters.remove(character)
         db.session.commit()
     except Exception as err:
         print(str(err))
