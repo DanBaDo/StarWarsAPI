@@ -32,3 +32,5 @@ flask db upgrade
 ```bash
 flask run
 ```
+### Testing
+You can find a [Insomnia](https://insomnia.rest/) file in '''insomnia/insomnia.json''' for testing the API.
